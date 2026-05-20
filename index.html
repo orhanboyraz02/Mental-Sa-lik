@@ -3,219 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Beslenme ve Mental Sağlık Paneli | Fonksiyonel Tıp Yönetim Sistemi</title>
-    <!-- Google Fonts & Tailwind CDN + Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <title>Beslenme & Mental Sağlık Paneli | Orhan BOYRAZ | Fonksiyonel Tıp Yönetim Sistemi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * { font-family: 'Inter', sans-serif; }
         body { background: #0A0F1F; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #111827; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: #2d3a5e; border-radius: 10px; }
-        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -12px rgba(0,0,0,0.5); }
-        .gradient-border { background: linear-gradient(135deg, #10B981, #0EA5E9); padding: 1px; border-radius: 1.25rem; }
-        .modal-overlay { background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); }
+        ::-webkit-scrollbar-thumb { background: #10B981; border-radius: 10px; }
+        .card-hover { transition: all 0.2s ease; }
+        .card-hover:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -12px rgba(0,0,0,0.4); }
+        .nav-tab-active { background: linear-gradient(135deg, #10B98120, #0EA5E920); border-bottom: 2px solid #10B981; color: #10B981; }
+        .modal-overlay { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
+        .module-drag { cursor: grab; }
+        .module-drag:active { cursor: grabbing; }
         .role-badge { background: linear-gradient(135deg, #1E2A3A, #0F172A); }
-        .nav-active { background: rgba(16, 185, 129, 0.15); border-left: 3px solid #10B981; }
     </style>
 </head>
-<body class="text-gray-200 antialiased">
+<body class="text-gray-200">
 
-    <!-- ==================================================== -->
-    <!-- KULLANICI GİRİŞ EKRANI (Modal / Popup) -->
-    <!-- ==================================================== -->
-    <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay transition-all duration-300">
-        <div class="bg-[#0F172A] w-full max-w-md rounded-2xl shadow-2xl border border-gray-700 p-6 mx-4 animate-[fadeInUp_0.3s_ease]">
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay">
+        <div class="bg-[#0F172A] w-full max-w-md rounded-2xl shadow-2xl border border-gray-700 p-6 mx-4">
             <div class="text-center mb-6">
                 <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
                     <i class="fas fa-brain text-white text-3xl"></i>
                 </div>
                 <h2 class="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">Beslenme & Mental Zeka</h2>
-                <p class="text-gray-400 text-sm mt-1">Premium Fonksiyonel Tıp Paneli</p>
+                <p class="text-gray-400 text-sm">Premium Fonksiyonel Tıp Paneli</p>
             </div>
             <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">E-posta</label>
-                    <input type="email" id="loginEmail" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none" placeholder="doktor@klinik.com">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Şifre</label>
-                    <input type="password" id="loginPassword" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none" placeholder="••••••••">
-                </div>
-                <div class="flex items-center justify-between text-sm">
-                    <label class="flex items-center gap-2"><input type="checkbox" class="rounded bg-gray-700"><span class="text-gray-400">Beni hatırla</span></label>
-                    <a href="#" class="text-emerald-400 hover:underline">Şifremi unuttum</a>
-                </div>
-                <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 py-2.5 rounded-xl font-semibold transition-all">Giriş Yap</button>
-                <div class="text-center text-xs text-gray-500 pt-2">Demo: doktor@klinik.com / 123456</div>
+                <div><label class="block text-sm font-medium text-gray-300 mb-1">E-posta</label><input type="email" id="loginEmail" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white" placeholder="ornek@klinik.com"></div>
+                <div><label class="block text-sm font-medium text-gray-300 mb-1">Şifre</label><input type="password" id="loginPassword" class="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-white" placeholder="••••••"></div>
+                <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 py-2.5 rounded-xl font-semibold">Giriş Yap</button>
+                <div class="text-center text-xs text-gray-500">Demo: admin@klinik.com / 123456</div>
             </div>
-            <div class="mt-6 text-center text-xs text-gray-500 border-t border-gray-800 pt-4">
-                <i class="fas fa-shield-alt"></i> HIPAA & GDPR uyumlu | Tıbbi cihaz sınıfı güvenlik
-            </div>
+            <div class="mt-5 text-center text-[10px] text-gray-600 border-t border-gray-800 pt-3">HIPAA & GDPR Uyumlu | AI Destekli Tanımsal Öneri</div>
         </div>
     </div>
 
-    <!-- ==================================================== -->
-    <!-- ANA PANEL (Başlangıçta gizli, login sonrası göster) -->
-    <!-- ==================================================== -->
+    <!-- MAIN DASHBOARD -->
     <div id="mainDashboard" style="display: none;">
-        
-        <!-- ÜST BAR: Kullanıcı Bilgisi + Rol Yönetimi -->
+        <!-- HEADER -->
         <div class="bg-[#0A0F1F] border-b border-gray-800 sticky top-0 z-40 backdrop-blur-sm bg-opacity-95">
-            <div class="max-w-[1600px] mx-auto px-4 md:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="max-w-[1800px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3"><i class="fas fa-chalkboard-user text-emerald-400 text-xl"></i><h1 class="text-xl font-bold">🧠 Beslenme & Mental Sağlık Paneli</h1><span class="hidden md:inline-block text-[11px] bg-emerald-900/40 px-2 py-1 rounded-full">Orhan BOYRAZ | Yönetim Sistemi</span></div>
                 <div class="flex items-center gap-3">
-                    <i class="fas fa-chalkboard-user text-emerald-400 text-xl"></i>
-                    <h1 class="text-xl font-bold tracking-tight">🧠 Beslenme & Mental Sağlık Paneli</h1>
-                    <span class="hidden md:inline-block text-[11px] bg-emerald-900/40 text-emerald-300 px-2 py-1 rounded-full">AI Destekli Yönetim Sistemi v2.0</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <!-- Rol seçici (Yönetim Paneli) -->
-                    <div class="relative">
-                        <select id="roleSelector" class="bg-gray-800 border border-gray-700 rounded-full text-sm px-3 py-1.5 appearance-none cursor-pointer focus:outline-none focus:border-emerald-500">
-                            <option value="bireysel">👤 Bireysel Kullanıcı</option>
-                            <option value="uzman" selected>👨‍⚕️ Fonksiyonel Tıp Uzmanı</option>
-                            <option value="psikiyatrist">🧠 Psikiyatrist</option>
-                            <option value="diyetisyen">🥗 Diyetisyen</option>
-                            <option value="klinik">🏥 Klinik Yönetici</option>
-                        </select>
-                        <i class="fas fa-chevron-down absolute right-3 top-2 text-xs text-gray-400"></i>
-                    </div>
+                    <select id="roleSelector" class="bg-gray-800 border border-gray-700 rounded-full text-sm px-3 py-1.5">
+                        <option value="uzman">👨‍⚕️ Fonksiyonel Tıp Uzmanı</option><option value="psikiyatrist">🧠 Psikiyatrist</option><option value="diyetisyen">🥗 Diyetisyen</option><option value="klinik">🏥 Klinik Yönetici</option><option value="bireysel">👤 Bireysel</option>
+                    </select>
                     <div class="w-px h-6 bg-gray-700"></div>
-                    <div class="flex items-center gap-2">
-                        <div class="text-right hidden sm:block">
-                            <div class="text-sm font-medium" id="userRoleDisplay">Dr. Elif Yılmaz</div>
-                            <div class="text-[10px] text-gray-400">Fonksiyonel Tıp Uzmanı</div>
-                        </div>
-                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center"><i class="fas fa-user-md text-white text-sm"></i></div>
-                        <button onclick="logout()" class="text-gray-400 hover:text-white text-sm ml-1"><i class="fas fa-sign-out-alt"></i></button>
-                    </div>
+                    <div class="flex items-center gap-2"><div class="text-right hidden sm:block"><div class="text-sm font-medium" id="userRoleDisplay">Orhan BOYRAZ</div><div class="text-[10px] text-gray-400">Yönetici</div></div><div class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center"><i class="fas fa-crown text-white text-sm"></i></div><button onclick="logout()" class="text-gray-400 hover:text-white"><i class="fas fa-sign-out-alt"></i></button></div>
+                </div>
+            </div>
+            <!-- SAĞLIK GRUPLARI SEKME MENÜSÜ -->
+            <div class="max-w-[1800px] mx-auto px-4 border-b border-gray-800/60">
+                <div class="flex flex-wrap gap-1 text-sm">
+                    <button onclick="switchHealthGroup('anasayfa')" id="tabAnasayfa" class="nav-tab px-5 py-2.5 font-medium rounded-t-lg transition-all flex items-center gap-2"><i class="fas fa-home"></i> Ana Sayfa</button>
+                    <button onclick="switchHealthGroup('depresyon')" id="tabDepresyon" class="nav-tab px-5 py-2.5 font-medium rounded-t-lg transition-all flex items-center gap-2"><i class="fas fa-frown"></i> Depresyon Risk Grubu</button>
+                    <button onclick="switchHealthGroup('anksiyete')" id="tabAnksiyete" class="nav-tab px-5 py-2.5 font-medium rounded-t-lg transition-all flex items-center gap-2"><i class="fas fa-waveform"></i> Anksiyete Grubu</button>
+                    <button onclick="switchHealthGroup('uyku')" id="tabUyku" class="nav-tab px-5 py-2.5 font-medium rounded-t-lg transition-all flex items-center gap-2"><i class="fas fa-moon"></i> Uyku Bozukluğu</button>
+                    <button onclick="switchHealthGroup('bagirsak')" id="tabBagirsak" class="nav-tab px-5 py-2.5 font-medium rounded-t-lg transition-all flex items-center gap-2"><i class="fas fa-stethoscope"></i> Bağırsak-Beyin</button>
+                    <button onclick="switchHealthGroup('yönetim')" id="tabYonetim" class="nav-tab px-5 py-2.5 font-medium rounded-t-lg transition-all flex items-center gap-2"><i class="fas fa-sliders-h"></i> ⚙️ Modül Yönetimi</button>
                 </div>
             </div>
         </div>
 
-        <div class="max-w-[1600px] mx-auto p-4 md:p-6">
-            
-            <!-- Executive Health Command Center (Tam Türkçe) -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                <!-- Ana Mental Sağlık Skoru -->
-                <div class="gradient-border col-span-1">
-                    <div class="bg-[#0F172A] rounded-2xl p-5 h-full">
-                        <div class="flex justify-between"><span class="text-gray-300 font-medium"><i class="fas fa-brain text-emerald-400 mr-1"></i> Mental Sağlık Skoru</span><i class="fas fa-chart-simple text-emerald-400/50"></i></div>
-                        <div class="flex justify-center my-3"><div class="relative w-36 h-36"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#1E2A3A" stroke-width="8"/><circle id="mentalCircle" cx="60" cy="60" r="52" fill="none" stroke="#10B981" stroke-width="8" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0" transform="rotate(-90 60 60)"/><text x="60" y="70" text-anchor="middle" fill="white" font-size="26" font-weight="bold" id="mentalScoreText">78</text><text x="60" y="90" text-anchor="middle" fill="#9ca3af" font-size="10">/100</text></svg></div></div>
-                        <div class="text-center"><span class="text-green-400 text-sm"><i class="fas fa-arrow-up"></i> +5 puan (son 30 gün)</span><div class="text-xs text-gray-400 mt-1">Depresyon riski: %12 | Anksiyete: %24</div></div>
-                        <div class="mt-3 grid grid-cols-2 text-center text-xs bg-gray-800/50 rounded-xl p-2"><div>⚡ Enerji: 8.2/10</div><div>🎯 Odaklanma: 84/100</div></div>
-                    </div>
-                </div>
-                <!-- Kritik Uyarılar ve Biyobelirteç -->
-                <div class="lg:col-span-2 bg-[#0F172A] rounded-2xl p-5 border border-gray-800">
-                    <h3 class="font-semibold mb-3"><i class="fas fa-bell text-amber-400 mr-2"></i>Kritik Biyobelirteç & Risk Uyarıları</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div class="bg-red-900/20 border-l-4 border-red-500 p-3 rounded"><div class="flex justify-between"><span>D Vitamini</span><span class="text-red-300">24 ng/mL</span></div><div class="text-xs">Düşük → depresyon riski +%32</div><div class="text-emerald-300 text-xs">💊 5000 IU D3+K2 önerisi</div></div>
-                        <div class="bg-amber-900/20 border-l-4 border-amber-500 p-3 rounded"><div class="flex justify-between"><span>Omega-3 İndeksi</span><span class="text-amber-300">4.2%</span></div><div class="text-xs">Optimalin altı, nöroinflamasyon</div><div class="text-emerald-300 text-xs">🐟 EPA 1.5-2g/gün</div></div>
-                        <div class="bg-sky-900/20 border-l-4 border-sky-500 p-3 rounded"><div class="flex justify-between"><span>HRV (RMSSD)</span><span class="text-sky-300">28 ms</span></div><div class="text-xs">Düşük stres toleransı</div><div class="text-emerald-300 text-xs">🧘‍♂️ Magnezyum + Solunum egzersizi</div></div>
-                        <div class="bg-purple-900/20 border-l-4 border-purple-500 p-3 rounded"><div class="flex justify-between"><span>Bağırsak Geçirgenliği</span><span class="text-purple-300">Zonulin ↑</span></div><div class="text-xs">Serotonin üretimi baskılanmış</div><div class="text-emerald-300 text-xs">🌿 Glutamin + Probiyotik</div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mikro Besin + Uyku + HRV + Bağırsak (grid) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><h3 class="font-semibold mb-2"><i class="fas fa-chart-pie text-emerald-400"></i> Mikronutrient Durumu (Radar)</h3><canvas id="turRadarChart" height="180"></canvas><div class="text-xs text-center text-gray-400 mt-2">Omega-3 ve D Vitamini kritik eşik altında</div></div>
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><h3 class="font-semibold mb-2"><i class="fas fa-moon text-indigo-300"></i> Uyku İstihbarat Merkezi</h3><div class="flex justify-between items-center"><span class="text-3xl font-bold">6s 48dk</span><span class="bg-indigo-900/40 px-2 py-1 rounded">Kalite: 72/100</span></div><div class="w-full bg-gray-700 rounded-full h-2 my-2"><div class="bg-indigo-500 w-[70%] h-2 rounded-full"></div></div><div class="grid grid-cols-2 gap-1 text-sm"><span>💤 Derin uyku: 1s 24dk</span><span>🧠 REM: 1s 50dk</span><span>🔄 Sirkadiyen: Melatonin geç</span><span>⭐ Öneri: 22:30 yatış</span></div></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><i class="fas fa-heartbeat text-rose-400 text-xl"></i><h3 class="font-semibold mt-1">Stres & HRV Analizi</h3><div class="text-3xl font-bold text-sky-300">28<span class="text-base"> ms</span></div><div>Kortizol sabah: 18.2 | Akşam: 5.1</div><div class="mt-2 text-xs bg-gray-800 p-2 rounded"><i class="fas fa-leaf text-emerald-400"></i> Öneri: 4-7-8 nefes, günlük 10 dk meditasyon</div></div>
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><i class="fas fa-brain text-purple-400 text-xl"></i><h3 class="font-semibold mt-1">Bağırsak-Beyin Ekseni</h3><div>Serotonin öncülleri: %62</div><div class="w-full bg-gray-700 rounded-full h-1.5 my-1"><div class="bg-purple-500 w-[62%] h-1.5 rounded-full"></div></div><div>Zonulin: ↑ yüksek | Butirat: düşük</div><div class="text-emerald-300 text-xs mt-2">🥬 Fermente gıdalar, dirençli nişasta önerilir</div></div>
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><i class="fas fa-capsules text-emerald-400 text-xl"></i><h3 class="font-semibold mt-1">Supplement Optimizasyon Motoru</h3><div class="space-y-1 text-sm"><div class="flex justify-between"><span>💊 D3+K2</span><span>5000 IU/gün</span></div><div class="flex justify-between"><span>🐟 Omega-3 (EPA/DHA)</span><span>2g EPA</span></div><div class="flex justify-between"><span>🧂 Magnezyum L-Treonat</span><span>144 mg</span></div><div class="flex justify-between"><span>🧬 Metilkobalamin B12</span><span>1000 mcg</span></div></div></div>
-            </div>
-
-            <!-- Bilişsel Performans + Uzun Yaşam + Kan Şekeri + AI Coach -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><i class="fas fa-microchip text-cyan-400"></i><h3 class="font-semibold">Bilişsel Performans</h3><div class="text-2xl font-bold">84/100</div><div>Reaksiyon: 312 ms | Çalışan bellek: %86</div><div class="text-emerald-400 text-xs mt-1">✅ Odaklanma +%8 son 3 hafta</div></div>
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><i class="fas fa-hourglass-half text-indigo-300"></i><h3 class="font-semibold">Uzun Yaşam Potansiyeli</h3><div class="text-3xl font-bold text-indigo-300">81<span class="text-base">/100</span></div><div>Metabolik yaş: 34 | Gerçek yaş: 38</div><div>Kas kütlesi yeterli | CRP: 1.2 mg/L</div></div>
-                <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800"><i class="fas fa-tachometer-alt text-yellow-400"></i><h3 class="font-semibold">Kan Şekeri Stabilitesi</h3><div>Açlık glukoz: 88 mg/dL</div><div>HOMA-IR: 1.9 | CV: %14</div><div class="text-green-400">✅ Glisemik kontrol iyi</div></div>
-                <div class="bg-gradient-to-br from-[#0f172a] to-[#111c2e] rounded-2xl p-4 border border-gray-700"><i class="fab fa-robot text-sky-400 text-xl"></i><h3 class="font-semibold">AI Sağlık Koçu</h3><p class="text-xs text-gray-300 mt-1">Analiz: D vitamini & Omega-3 düşüklüğü depresif eğilimi artırıyor. 30 günlük protokol ile Mental skor 85+ bekleniyor.</p><div class="flex gap-1 mt-2"><input placeholder="Semptom sor..." class="bg-gray-800 text-xs rounded-full px-3 py-1 w-full"><button class="bg-emerald-700 px-3 rounded-full text-xs"><i class="fas fa-comment"></i></button></div></div>
-            </div>
-
-            <!-- Haftalık Alışkanlık ve İlerleme Analitiği -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800"><h3 class="font-semibold mb-2"><i class="fas fa-calendar-check text-emerald-400"></i> Alışkanlık Takip & Günlük Protokol</h3><div class="grid grid-cols-2 gap-2 text-sm"><div>✅ Güneşlenme (15dk)</div><div>✅ Meditasyon</div><div>⚠️ Su tüketimi (2.4L)</div><div>✅ Omega-3 alımı</div><div>❌ Akşam mavi ışık</div><div>✅ Yürüyüş (8000 adım)</div></div><div class="mt-3 text-xs text-gray-400">Tamamlanma oranı: %72 | Hedef %85</div></div>
-                <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800"><h3 class="font-semibold mb-2"><i class="fas fa-chart-line text-blue-400"></i> 30/90 Günlük İyileşme Planı</h3><div class="space-y-2"><div class="bg-gray-800/40 p-2 rounded"><span class="font-medium">📅 30 Gün:</span> D vitamini & Omega-3 yüklemesi, bağırsak onarımı, HRV artışı hedeflenir.</div><div class="bg-gray-800/40 p-2 rounded"><span class="font-medium">📆 90 Gün:</span> Bilişsel esneklik + inflamasyon baskılanması + uzun yaşam epigenetik iyileşme.</div></div></div>
-            </div>
-
-            <!-- Progress Analytics & Semptom Korelasyon -->
-            <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800 mb-8">
-                <h3 class="font-semibold mb-3"><i class="fas fa-chart-simple text-purple-300"></i> İlerleme Analitiği ve Semptom Korelasyon Motoru</h3>
-                <div class="grid md:grid-cols-2 gap-4 text-sm">
-                    <div><div class="flex justify-between border-b border-gray-700 py-1"><span>Beslenme ↔ Depresyon</span><span class="text-emerald-300">Negatif korelasyon -0.68</span></div><div class="flex justify-between border-b border-gray-700 py-1"><span>Omega-3 ↔ Ruh hali</span><span class="text-emerald-300">Güçlü pozitif +0.72</span></div><div class="flex justify-between border-b border-gray-700 py-1"><span>D Vitamini ↔ Enerji</span><span class="text-amber-300">Orta korelasyon +0.55</span></div></div>
-                    <div><div class="flex justify-between border-b border-gray-700 py-1"><span>Magnezyum ↔ Anksiyete</span><span class="text-emerald-300">Negatif -0.61</span></div><div class="flex justify-between border-b border-gray-700 py-1"><span>Uyku kalitesi ↔ Mood</span><span class="text-emerald-300">Çok güçlü +0.83</span></div><div class="flex justify-between py-1"><span>Bağırsak sağlığı ↔ Serotonin</span><span class="text-emerald-300">Pozitif +0.79</span></div></div>
-                </div>
-                <div class="mt-3 text-xs text-gray-400 italic"><i class="fas fa-database"></i> Veri kaynakları: Kan tahlilleri, günlük ruh hali, giyilebilir cihaz entegrasyonu</div>
-            </div>
-
-            <!-- Footer: detaylı bilgiler -->
-            <div class="border-t border-gray-800 pt-6 mt-4 text-[11px] text-gray-500 grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div><i class="fas fa-shield-alt text-emerald-500 mr-1"></i> <strong class="text-gray-400">Yasal Uyarı:</strong> Bu sistem yalnızca eğitim ve yaşam tarzı optimizasyonu amaçlıdır; tıbbi tanı veya tedavi yerine geçmez. Tüm öneriler sağlık profesyoneli değerlendirmesi ile kullanılmalıdır.</div>
-                <div><i class="fas fa-microchip mr-1"></i> <strong>Teknoloji Mimarisi:</strong> Next.js, NestJS, PostgreSQL, Redis, OpenAI GPT-4, Vektör DB, Docker, AWS</div>
-                <div><i class="fas fa-chalkboard-user mr-1"></i> <strong>Beslenme & Mental Sağlık Paneli</strong> | Fonksiyonel Tıp v2.0 | © 2025 Tüm hakları saklıdır | v4.5.0</div>
-            </div>
+        <div class="max-w-[1800px] mx-auto p-5">
+            <!-- DİNAMİK İÇERİK ALANI: Sağlık gruplarına göre değişir -->
+            <div id="dynamicContentArea" class="transition-all duration-300"></div>
         </div>
+
+        <!-- FOOTER: ORHAN BOYRAZ BİLGİLERİ -->
+        <footer class="border-t border-gray-800 bg-[#0A0F1F] mt-8 pt-6 pb-4 px-5">
+            <div class="max-w-[1800px] mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-[12px] text-gray-400">
+                    <div><i class="fas fa-user-tie text-emerald-400 mr-2"></i><strong class="text-white">Orhan BOYRAZ</strong><br>Fonksiyonel Tıp & Sağlık Teknolojileri Mimarı<br>Uzmanlık Alanları: Nörobilim, Beslenme Psikiyatrisi, Longevity</div>
+                    <div><i class="fas fa-phone-alt text-emerald-400 mr-2"></i><strong class="text-white">İletişim</strong><br>📞 0540 966 6002<br>📧 orhan@boyraz.com<br>🌐 www.boyrazhealth.com</div>
+                    <div><i class="fas fa-shield-alt text-emerald-400 mr-2"></i><strong class="text-white">Yasal & Teknik</strong><br>Bu sistem tıbbi tanı yerine geçmez. AI destekli öneriler eğitim amaçlıdır. Tüm hakları saklıdır © 2025 | Versiyon 3.0 | GDPR Uyumlu</div>
+                </div>
+                <div class="text-center text-[10px] text-gray-600 mt-5 pt-3 border-t border-gray-800">Developed by Orhan BOYRAZ - Beslenme & Mental Sağlık Intelligence Dashboard | Fonksiyonel Tıp Yapay Zeka Motoru</div>
+            </div>
+        </footer>
     </div>
 
     <script>
-        // Login işlemi
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value;
-            const pwd = document.getElementById('loginPassword').value;
-            if(email && pwd){
-                document.getElementById('loginModal').style.display = 'none';
-                document.getElementById('mainDashboard').style.display = 'block';
-                // kullanıcı rolünü güncelle
-                updateRoleUI();
-            } else {
-                alert("Lütfen demo giriş bilgilerini girin: doktor@klinik.com / 123456");
+        // --- GLOBAL STATE: Modüller (Yönetim panelinde düzenlenebilir)
+        let activeModules = {
+            anaSayfaModulleri: ['mentalSkor','kritikUyarilar','mikroBesin','uykuAnaliz','stresHrv','bagirsakEksen','supplement','bilişsel','uzunYasam','aiSohbet'],
+            depresyonModulleri: ['depresyonRisk','dVitamini','omega3','moodGrafik','fizikselAktivite'],
+            anksiyeteModulleri: ['anksiyeteSkor','magnezyum','hrvDetay','nefesEgzersiz','kortizolEğrisi'],
+            uykuModulleri: ['uykuSuresi','sirkadiyen','melatonin','derinRem','uykuHijyeni'],
+            bagirsakModulleri: ['zonulin','serotonin','mikrobiyom','butirat','probiyotik'],
+        };
+        
+        let currentGroup = 'anasayfa';
+
+        // Login/logout
+        function handleLogin(){ document.getElementById('loginModal').style.display='none'; document.getElementById('mainDashboard').style.display='block'; renderCurrentGroup(); updateRoleUI(); }
+        function logout(){ document.getElementById('loginModal').style.display='flex'; document.getElementById('mainDashboard').style.display='none'; }
+        function updateRoleUI(){ const role=document.getElementById('roleSelector').value; const el=document.getElementById('userRoleDisplay'); if(role=='uzman') el.innerText='Dr. Orhan BOYRAZ (Fonksiyonel Tıp)'; else if(role=='psikiyatrist') el.innerText='Prof. Orhan BOYRAZ (Psikiyatrist)'; else if(role=='diyetisyen') el.innerText='Dyt. Orhan BOYRAZ'; else if(role=='klinik') el.innerText='Orhan BOYRAZ - Klinik Yönetici'; else el.innerText='Orhan BOYRAZ (Bireysel)'; }
+        document.getElementById('roleSelector')?.addEventListener('change', updateRoleUI);
+        
+        // Sağlık grubu geçişleri
+        window.switchHealthGroup = (group) => {
+            currentGroup = group;
+            // Tab görsel güncelleme
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('nav-tab-active', 'border-b-2', 'border-emerald-500', 'text-emerald-400'));
+            const activeTab = document.getElementById(`tab${group.charAt(0).toUpperCase()+group.slice(1)}`);
+            if(activeTab) activeTab.classList.add('nav-tab-active','text-emerald-400','border-b-2','border-emerald-500');
+            else document.getElementById('tabAnasayfa')?.classList.add('nav-tab-active','text-emerald-400');
+            renderCurrentGroup();
+        };
+        
+        // RENDER FONKSİYONU: Sağlık grubuna göre dashboard + yönetim paneli
+        function renderCurrentGroup(){
+            const container = document.getElementById('dynamicContentArea');
+            if(currentGroup === 'yönetim'){
+                renderYonetimPaneli(container);
+                return;
+            }
+            // Normal sağlık grubu gösterimi
+            let modulListesi = [];
+            if(currentGroup === 'anasayfa') modulListesi = activeModules.anaSayfaModulleri;
+            else if(currentGroup === 'depresyon') modulListesi = activeModules.depresyonModulleri;
+            else if(currentGroup === 'anksiyete') modulListesi = activeModules.anksiyeteModulleri;
+            else if(currentGroup === 'uyku') modulListesi = activeModules.uykuModulleri;
+            else if(currentGroup === 'bagirsak') modulListesi = activeModules.bagirsakModulleri;
+            
+            let groupTitle = '';
+            if(currentGroup === 'anasayfa') groupTitle = 'Genel Sağlık Yönetim Paneli - Executive Dashboard';
+            else if(currentGroup === 'depresyon') groupTitle = '📉 Depresyon Risk Grubu | Biyobelirteç & Ruh Hali İzleme';
+            else if(currentGroup === 'anksiyete') groupTitle = '🌊 Anksiyete Yönetimi | Stres ve Otonom Sinir Sistemi';
+            else if(currentGroup === 'uyku') groupTitle = '🌙 Uyku Bozukluğu Grubu | Sirkadiyen Ritim ve Derin Uyku';
+            else groupTitle = '🧬 Bağırsak-Beyin Ekseni | Mikrobiyom & Nörotransmitter';
+            
+            let html = `<div class="mb-6"><h2 class="text-2xl font-bold bg-gradient-to-r from-emerald-300 to-sky-300 bg-clip-text text-transparent">${groupTitle}</h2><p class="text-gray-400 text-sm">Kişiselleştirilmiş AI müdahaleleri ve biyomedikal izleme</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+            
+            for(let mod of modulListesi){
+                html += renderModuleCard(mod);
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+            attachChartScripts();
+        }
+        
+        function renderModuleCard(moduleId){
+            const modulesMap = {
+                mentalSkor: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700 card-hover"><div class="flex justify-between"><i class="fas fa-brain text-emerald-400 text-xl"></i><span class="text-xs bg-gray-800 px-2 py-1 rounded-full">AI Skor</span></div><h3 class="font-bold mt-2">Mental Sağlık Skoru</h3><div class="text-4xl font-bold my-2">78<span class="text-lg">/100</span></div><div class="w-full bg-gray-700 rounded-full h-2"><div class="bg-emerald-500 w-[78%] h-2 rounded-full"></div></div><div class="flex justify-between text-xs mt-2"><span>⬆️ +5 puan</span><span>Depresyon risk: %12</span></div></div>`,
+                kritikUyarilar: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700 card-hover"><h3 class="font-bold"><i class="fas fa-bell text-amber-400"></i> Kritik Uyarılar</h3><div class="mt-2 space-y-2 text-sm"><div class="bg-red-900/20 p-2 rounded">⚠️ D Vitamini 24 ng/mL (düşük)</div><div class="bg-amber-900/20 p-2 rounded">⚠️ Omega-3 indeksi %4.2</div><div class="bg-sky-900/20 p-2 rounded">⚠️ HRV 28 ms (düşük)</div></div></div>`,
+                mikroBesin: `<div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-700"><h3 class="font-bold"><i class="fas fa-chart-pie text-emerald-400"></i> Mikro Besin Radarı</h3><canvas id="radarMini" height="150"></canvas><div class="text-[10px] text-center">Omega-3, D Vitamini kritik</div></div>`,
+                uykuAnaliz: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-moon text-indigo-300"></i><h3 class="font-bold">Uyku Analizi</h3><div class="text-2xl font-bold">6h 48dk</div><div>Derin: 1h24 | REM: 1h50</div><div class="mt-2 text-emerald-300">Öneri: 22:30 yatış, magnezyum</div></div>`,
+                stresHrv: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-heartbeat text-rose-400"></i><h3 class="font-bold">HRV & Stres</h3><div>RMSSD: 28 ms</div><div>Kortizol sabah 18.2 | akşam 5.1</div><div class="text-xs bg-gray-800 p-2 rounded mt-2">🧘 4-7-8 nefes önerilir</div></div>`,
+                bagirsakEksen: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-brain text-purple-400"></i><h3 class="font-bold">Bağırsak-Beyin</h3><div>Serotonin öncülleri: %62</div><div>Zonulin: ↑ yüksek</div><div>🦠 Probiyotik + Glutamin</div></div>`,
+                supplement: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-capsules text-emerald-400"></i><h3 class="font-bold">Supplement Optimizer</h3><div>💊 D3 5000IU<br>🐟 Omega-3 2g EPA<br>🧂 Magnezyum 144mg</div></div>`,
+                bilişsel: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-microchip text-cyan-400"></i><h3 class="font-bold">Bilişsel Performans</h3><div>Skor: 84/100</div><div>Reaksiyon: 312ms | Odaklanma +%8</div></div>`,
+                uzunYasam: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-hourglass-half text-indigo-300"></i><h3 class="font-bold">Uzun Yaşam Skoru</h3><div class="text-3xl font-bold">81/100</div><div>Metabolik yaş: 34</div><div>Kas kütlesi yeterli</div></div>`,
+                aiSohbet: `<div class="bg-gradient-to-br from-[#0f172a] to-[#111c2e] rounded-2xl p-5 border border-gray-700"><i class="fab fa-robot text-sky-400 text-xl"></i><h3 class="font-bold">AI Sağlık Koçu</h3><p class="text-xs">D vitamini ve omega-3 takviyesi önerilir. 30 günde mental skor +8 hedeflenir.</p><input placeholder="Sorunuz..." class="w-full mt-2 bg-gray-800 text-xs rounded-full px-3 py-1"></div>`,
+                depresyonRisk: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-frown-open text-red-400"></i><h3 class="font-bold">Depresyon Risk Skoru</h3><div class="text-4xl font-bold">12<span class="text-base">%</span></div><div>PHQ-9 eşdeğeri: 7 puan</div><div class="text-green-300">Düşük risk, destekleyici</div></div>`,
+                dVitamini: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-sun text-yellow-300"></i><h3>D Vitamini Durumu</h3><div class="text-2xl">24 ng/mL</div><div class="text-red-300">Kritik Düşük</div><div>Öneri: 5000 IU/gün</div></div>`,
+                omega3: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-fish"></i><h3>Omega-3 İndeksi</h3><div>%4.2 (optimal <%8)</div><div>EPA 1.5g/gün önerisi</div></div>`,
+                moodGrafik: `<div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-700"><h3>📈 Mood Trendi</h3><canvas id="moodLine" height="100"></canvas></div>`,
+                anksiyeteSkor: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-waveform text-amber-400"></i><h3>Anksiyete Risk Skoru</h3><div class="text-3xl font-bold">24%</div><div>GAD-7: 9 puan</div></div>`,
+                magnezyum: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-leaf"></i><h3>Magnezyum Durumu</h3><div>RBC Mag: 4.2 mg/dL (düşük)</div><div>Anksiyete ile ilişkili</div></div>`,
+                hrvDetay: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><h3>HRV Detaylı Analiz</h3><div>RMSSD: 28ms, SDNN: 35ms</div><div>Sempatik tonus ↑</div></div>`,
+                kortizolEğrisi: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><h3>Kortizol Eğrisi</h3><div>Sabah 18 | Akşam 5.1</div><div>Stres yönetimi gerekli</div></div>`,
+                uykuSuresi: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><h3>Uyku Süresi</h3><div class="text-3xl">6h 48dk</div><div>Hedef: 7.5 saat</div></div>`,
+                sirkadiyen: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><h3>Sirkadiyen Ritim</h3><div>Melatonin salınımı gecikmeli</div><div>🌅 Sabah ışığı önerisi</div></div>`,
+                bagirsakModul: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><h3>Mikrobiyom Çeşitliliği</h3><div>Alpha diversity: düşük</div><div>Firmicutes/Bacteroidetes yüksek</div></div>`
+            };
+            return modulesMap[moduleId] || `<div class="bg-gray-800 p-4 rounded-xl">Modül: ${moduleId} (Yükleniyor)</div>`;
+        }
+
+        function attachChartScripts(){
+            if(document.getElementById('radarMini')){
+                new Chart(document.getElementById('radarMini'), { type:'radar', data:{ labels:['Omega-3','D Vit','B12','Magnezyum'], datasets:[{ data:[42,32,78,55], borderColor:'#10B981', backgroundColor:'rgba(16,185,129,0.2)' }] }, options:{ responsive: true, maintainAspectRatio: true } });
+            }
+            if(document.getElementById('moodLine')){
+                new Chart(document.getElementById('moodLine'), { type:'line', data:{ labels:['H1','H2','H3','H4'], datasets:[{ label:'Mood (1-10)', data:[5,6,7.2,7.8], borderColor:'#f59e0b' }] } });
             }
         }
-        function logout(){
-            document.getElementById('loginModal').style.display = 'flex';
-            document.getElementById('mainDashboard').style.display = 'none';
+        
+        // YÖNETİM PANELİ: Modülleri Sürükle-Bırak düzenleme
+        function renderYonetimPaneli(container){
+            let html = `<div class="bg-[#0F172A] rounded-2xl p-6 border border-gray-700"><h2 class="text-2xl font-bold mb-2"><i class="fas fa-sliders-h text-emerald-400"></i> Yönetim Paneli - Modül Düzenleyici</h2><p class="text-gray-400 text-sm mb-6">Aşağıdaki sağlık gruplarına ait modülleri aktifleştirebilir/deaktif edebilir veya sürükleyerek sıralamayı değiştirebilirsiniz (demo amaçlı toggle).</p>`;
+            const groups = ['anaSayfaModulleri','depresyonModulleri','anksiyeteModulleri','uykuModulleri','bagirsakModulleri'];
+            const groupNames = {'anaSayfaModulleri':'🏠 Ana Sayfa','depresyonModulleri':'📉 Depresyon Grubu','anksiyeteModulleri':'🌊 Anksiyete','uykuModulleri':'🌙 Uyku','bagirsakModulleri':'🧬 Bağırsak-Beyin'};
+            for(let g of groups){
+                html += `<div class="mb-8 bg-gray-800/30 rounded-xl p-4"><h3 class="font-bold text-lg text-emerald-300 mb-3">${groupNames[g]}</h3><div class="flex flex-wrap gap-2" id="moduleGroup-${g}">`;
+                for(let mod of activeModules[g]){
+                    html += `<div draggable="true" data-group="${g}" data-module="${mod}" class="module-card bg-gray-700 hover:bg-gray-600 rounded-lg px-3 py-2 text-sm flex items-center gap-2 cursor-grab"><i class="fas fa-grip-vertical text-gray-400"></i> ${mod} <button onclick="toggleModule('${g}','${mod}')" class="ml-2 text-red-400 hover:text-red-300 text-xs"><i class="fas fa-times-circle"></i></button></div>`;
+                }
+                html += `<div class="mt-2"><select id="selectAdd-${g}" class="bg-gray-800 text-xs rounded px-2 py-1"><option value="">Yeni modül ekle</option><option value="mentalSkor">Mental Skor</option><option value="kritikUyarilar">Kritik Uyarılar</option><option value="mikroBesin">Mikro Besin</option><option value="uykuAnaliz">Uyku Analizi</option><option value="stresHrv">Stres HRV</option><option value="supplement">Supplement</option><option value="bilişsel">Bilişsel</option><option value="aiSohbet">AI Sohbet</option></select> <button onclick="addModuleToGroup('${g}')" class="bg-emerald-700 text-xs px-2 py-1 rounded">Ekle</button></div>`;
+                html += `</div></div>`;
+            }
+            html += `<div class="mt-4 text-xs text-gray-400 border-t border-gray-700 pt-4"><i class="fas fa-save"></i> Değişiklikler otomatik kaydedilir. Yönetim paneli sayesinde tüm sağlık gruplarındaki görünümü düzenleyebilirsiniz.</div></div>`;
+            container.innerHTML = html;
+            attachDragDropEvents();
         }
-        // Demo rol değiştirme
-        const roleSelector = document.getElementById('roleSelector');
-        const userRoleDisplaySpan = document.getElementById('userRoleDisplay');
-        function updateRoleUI(){
-            const role = roleSelector.value;
-            if(role === 'uzman') userRoleDisplaySpan.innerText = 'Dr. Elif Yılmaz (Fonksiyonel Tıp)';
-            else if(role === 'psikiyatrist') userRoleDisplaySpan.innerText = 'Prof. Dr. Ali Kaya (Psikiyatrist)';
-            else if(role === 'diyetisyen') userRoleDisplaySpan.innerText = 'Dyt. Zeynep Demir (Diyetisyen)';
-            else if(role === 'klinik') userRoleDisplaySpan.innerText = 'Klinik Yönetici - MedWell';
-            else userRoleDisplaySpan.innerText = 'Ahmet Kullanıcı (Bireysel)';
+        
+        window.toggleModule = (groupKey, moduleName) => {
+            if(activeModules[groupKey]){
+                activeModules[groupKey] = activeModules[groupKey].filter(m => m !== moduleName);
+                renderYonetimPaneli(document.getElementById('dynamicContentArea'));
+            }
+        };
+        window.addModuleToGroup = (groupKey) => {
+            const select = document.getElementById(`selectAdd-${groupKey}`);
+            const newMod = select.value;
+            if(newMod && !activeModules[groupKey].includes(newMod)){
+                activeModules[groupKey].push(newMod);
+                renderYonetimPaneli(document.getElementById('dynamicContentArea'));
+            }
+        };
+        function attachDragDropEvents(){
+            const cards = document.querySelectorAll('.module-card');
+            cards.forEach(card => {
+                card.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', JSON.stringify({group:card.dataset.group, module:card.dataset.module})); });
+                card.addEventListener('dragover', e => e.preventDefault());
+                card.addEventListener('drop', e => {
+                    e.preventDefault();
+                    const sourceData = JSON.parse(e.dataTransfer.getData('text/plain'));
+                    const targetCard = e.target.closest('.module-card');
+                    if(targetCard && sourceData){
+                        const targetGroup = targetCard.dataset.group;
+                        const targetModule = targetCard.dataset.module;
+                        if(sourceData.group === targetGroup && sourceData.module !== targetModule){
+                            const list = activeModules[sourceData.group];
+                            const srcIdx = list.indexOf(sourceData.module);
+                            const tgtIdx = list.indexOf(targetModule);
+                            if(srcIdx !== -1 && tgtIdx !== -1){
+                                list.splice(srcIdx,1);
+                                list.splice(tgtIdx,0, sourceData.module);
+                                renderYonetimPaneli(document.getElementById('dynamicContentArea'));
+                            }
+                        }
+                    }
+                });
+            });
         }
-        roleSelector.addEventListener('change', updateRoleUI);
         
-        // Radar grafiği (Türkçe etiket)
-        const radarCtx = document.getElementById('turRadarChart').getContext('2d');
-        new Chart(radarCtx, {
-            type: 'radar', data: { labels: ['Omega-3 İndeksi', 'D Vitamini', 'B12', 'Magnezyum', 'Folat', 'Çinko'], datasets: [{ label: 'Mevcut seviye (%)', data: [42, 32, 78, 55, 68, 72], backgroundColor: 'rgba(16,185,129,0.2)', borderColor: '#10B981', borderWidth: 2 },{ label: 'Optimal Hedef', data: [85,80,90,80,85,85], borderColor: '#3B82F6', borderDash: [5,5], pointRadius: 2 }] },
-            options: { responsive: true, maintainAspectRatio: true, scales: { r: { beginAtZero: true, max: 100, ticks: { color: '#9ca3af', stepSize: 20 }, grid: { color: '#1f2a3e' } } }, plugins: { legend: { labels: { color: '#e2e8f0', font: { size: 9 } }, position: 'bottom' } } }
-        });
-        
-        // Mental skor dairesi
-        const mentalCircle = document.getElementById('mentalCircle');
-        const mentalText = document.getElementById('mentalScoreText');
-        let mentalScore = 78;
-        const circum = 2 * Math.PI * 52;
-        mentalCircle.style.strokeDasharray = `${circum}`;
-        mentalCircle.style.strokeDashoffset = circum - (mentalScore/100)*circum;
-        
-        // Mobil için demo yeterli
-        console.log("Panel aktif - tüm modüller Türkçe ve yönetim rol seçimi hazır.");
+        // İlk render
+        window.renderCurrentGroup = renderCurrentGroup;
+        window.switchHealthGroup('anasayfa');
+        document.getElementById('loginEmail').value = 'admin@klinik.com';
+        document.getElementById('loginPassword').value = '123456';
     </script>
 </body>
 </html>
