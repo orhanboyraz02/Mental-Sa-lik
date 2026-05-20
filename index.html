@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Beslenme & Mental Sağlık Paneli | Fitoterapist Orhan BOYRAZ | AI Destekli Teşhis Sistemi</title>
+    <title>Beslenme & Mental Sağlık Paneli | Orhan BOYRAZ | AI Destekli Teşhis Sistemi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -24,6 +24,8 @@
         .paket-card:hover { border-color: #10B981; box-shadow: 0 0 15px rgba(16,185,129,0.1); }
         .soru-card { background: linear-gradient(135deg, #0F172A, #111827); }
         .ai-öneri { background: linear-gradient(135deg, #0a2e1f, #0F172A); border-left: 4px solid #10B981; }
+        .module-drag { cursor: grab; }
+        .module-drag:active { cursor: grabbing; }
     </style>
 </head>
 <body class="text-gray-200">
@@ -78,12 +80,13 @@
             <div id="dynamicContentArea" class="transition-all duration-300"></div>
         </div>
 
-        <!-- FOOTER: PAKETLER ve WHATSAPP -->
+        <!-- FOOTER: PAKETLER (PRO ve PREMIUM yer değiştirildi) ve WHATSAPP -->
         <footer class="border-t border-gray-800 bg-[#0A0F1F] mt-8 pt-6 pb-4 px-5">
             <div class="max-w-[1800px] mx-auto">
                 <div class="mb-6">
                     <h3 class="text-lg font-bold text-center mb-4 bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent"><i class="fas fa-tags"></i> Hizmet Paketlerimiz</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <!-- Standart Paket - ÜCRETSİZ -->
                         <div class="paket-card bg-[#0F172A] rounded-2xl p-5 text-center border border-gray-700">
                             <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-gem text-emerald-400 text-xl"></i></div>
                             <h4 class="text-xl font-bold text-white">Standart Paket</h4>
@@ -91,25 +94,27 @@
                             <ul class="text-xs text-left text-gray-300 space-y-1 mt-3"><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> AI ön teşhis sorgulama</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Temel sağlık skorları</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Günlük ruh hali takibi</li></ul>
                             <button onclick="whatsappPaket('Standart Ücretsiz Paket')" class="whatsapp-btn w-full mt-4 py-2 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> WhatsApp ile Başla</button>
                         </div>
+                        <!-- PRO PAKET (Premium ile yer değiştirdi - şimdi Pro daha önce) -->
                         <div class="paket-card bg-[#0F172A] rounded-2xl p-5 text-center border border-emerald-500/40 shadow-lg">
-                            <div class="w-12 h-12 bg-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-crown text-yellow-400 text-xl"></i></div>
+                            <div class="w-12 h-12 bg-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-chart-line text-purple-400 text-xl"></i></div>
+                            <h4 class="text-xl font-bold text-white">Pro Paket</h4>
+                            <div class="text-2xl font-bold text-emerald-400 my-2">₺899 <span class="text-sm text-gray-400">/ ay</span></div>
+                            <ul class="text-xs text-left text-gray-300 space-y-1 mt-3"><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Tüm sağlık grupları</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Detaylı AI teşhis raporu</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> 7/24 AI Sağlık Koçu</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Aylık uzman görüşmesi (30 dk)</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Genetik test yorumlama</li></ul>
+                            <button onclick="whatsappPaket('Pro Paket (₺899/ay)')" class="whatsapp-btn w-full mt-4 py-2 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> WhatsApp ile Satın Al</button>
+                        </div>
+                        <!-- PREMIUM PAKET (Pro ile yer değiştirdi - şimdi Premium) -->
+                        <div class="paket-card bg-[#0F172A] rounded-2xl p-5 text-center border border-gray-700">
+                            <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-crown text-yellow-400 text-xl"></i></div>
                             <h4 class="text-xl font-bold text-white">Premium Paket</h4>
                             <div class="text-2xl font-bold text-emerald-400 my-2">₺499 <span class="text-sm text-gray-400">/ ay</span></div>
                             <ul class="text-xs text-left text-gray-300 space-y-1 mt-3"><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Tüm sağlık grupları</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Detaylı AI teşhis raporu</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Takviye planı</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Telefonla destek (ayda 2 kez)</li></ul>
                             <button onclick="whatsappPaket('Premium Paket (₺499/ay)')" class="whatsapp-btn w-full mt-4 py-2 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> WhatsApp ile Satın Al</button>
                         </div>
-                        <div class="paket-card bg-[#0F172A] rounded-2xl p-5 text-center border border-gray-700">
-                            <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-chart-line text-purple-400 text-xl"></i></div>
-                            <h4 class="text-xl font-bold text-white">Pro Paket</h4>
-                            <div class="text-2xl font-bold text-emerald-400 my-2">₺899 <span class="text-sm text-gray-400">/ ay</span></div>
-                            <ul class="text-xs text-left text-gray-300 space-y-1 mt-3"><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Premium'daki tüm özellikler</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> 7/24 AI Sağlık Koçu</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Aylık uzman görüşmesi</li><li><i class="fas fa-check-circle text-emerald-500 mr-1"></i> Genetik test yorumlama</li></ul>
-                            <button onclick="whatsappPaket('Pro Paket (₺899/ay)')" class="whatsapp-btn w-full mt-4 py-2 rounded-full text-white text-sm font-semibold flex items-center justify-center gap-2"><i class="fab fa-whatsapp"></i> WhatsApp ile Satın Al</button>
-                        </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-[12px] text-gray-400 border-t border-gray-800 pt-6">
                     <div><i class="fas fa-user-tie text-emerald-400 mr-2"></i><strong class="text-white">Orhan BOYRAZ</strong><br>Fonksiyonel Tıp & Sağlık Teknolojileri Mimarı</div>
-                    <div><i class="fas fa-phone-alt text-emerald-400 mr-2"></i><strong class="text-white">İletişim & WhatsApp</strong><br>📞 0540 966 6602<br>📧 orhanboyraz0216@gmail.com<br><span class="text-green-400"><i class="fab fa-whatsapp"></i> WhatsApp Hattı: 7/24</span></div>
+                    <div><i class="fas fa-phone-alt text-emerald-400 mr-2"></i><strong class="text-white">İletişim & WhatsApp</strong><br>📞 0540 966 6002<br>📧 orhanboyraz0216@gmail.com<br><span class="text-green-400"><i class="fab fa-whatsapp"></i> WhatsApp Hattı: 7/24</span></div>
                     <div><i class="fas fa-globe text-emerald-400 mr-2"></i><strong class="text-white">Web & Dijital</strong><br><a href="https://anadolunetwork.tr/" target="_blank" class="text-sky-400 hover:underline">🌐 anadolunetwork.tr</a></div>
                     <div><i class="fas fa-shield-alt text-emerald-400 mr-2"></i><strong class="text-white">Güvenlik & Uyum</strong><br>HIPAA & GDPR Uyumlu | Versiyon 6.0</div>
                 </div>
@@ -119,14 +124,24 @@
     </div>
 
     <script>
-        window.whatsappPaket = (paketAdi) => { window.open(`https://wa.me/905409666602?text=${encodeURIComponent(`Merhaba, ${paketAdi} hakkında bilgi almak istiyorum.`)}`, '_blank'); };
+        window.whatsappPaket = (paketAdi) => { window.open(`https://wa.me/905409666002?text=${encodeURIComponent(`Merhaba, ${paketAdi} hakkında bilgi almak istiyorum.`)}`, '_blank'); };
         function handleLogin(){ document.getElementById('loginModal').style.display='none'; document.getElementById('mainDashboard').style.display='block'; renderCurrentGroup(); updateRoleUI(); }
         function logout(){ document.getElementById('loginModal').style.display='flex'; document.getElementById('mainDashboard').style.display='none'; }
-        function updateRoleUI(){ const role=document.getElementById('roleSelector').value; document.getElementById('userRoleDisplay').innerText = role=='uzman'?'Fitoterapist Orhan BOYRAZ (Fonksiyonel Tıp)':role=='psikiyatrist'?'Prof. Orhan BOYRAZ':'Orhan BOYRAZ'; }
+        function updateRoleUI(){ const role=document.getElementById('roleSelector').value; document.getElementById('userRoleDisplay').innerText = role=='uzman'?'Dr. Orhan BOYRAZ (Fonksiyonel Tıp)':role=='psikiyatrist'?'Prof. Orhan BOYRAZ':'Orhan BOYRAZ'; }
         document.getElementById('roleSelector')?.addEventListener('change', updateRoleUI);
         
         let currentGroup = 'anasayfa';
         window.switchHealthGroup = (group) => { currentGroup = group; renderCurrentGroup(); };
+        
+        // GLOBAL STATE: Modüller (Yönetim panelinde düzenlenebilir)
+        let activeModules = {
+            anaSayfaModulleri: ['mentalSkor','kritikUyarilar','mikroBesin','uykuAnaliz','stresHrv','bagirsakEksen','supplement','bilişsel','uzunYasam','aiSohbet','moodGrafikTrend'],
+            depresyonModulleri: ['depresyonRisk','dVitamini','omega3','b12Durumu','lityumDurumu','moodGrafik'],
+            anksiyeteModulleri: ['anksiyeteSkor','magnezyum','hrvDetay','nefesEgzersiz','kortizolEğrisi'],
+            uykuModulleri: ['uykuSuresi','sirkadiyen','melatonin','derinRem','uykuHijyeni'],
+            bagirsakModulleri: ['zonulin','serotonin','mikrobiyom','butirat','probiyotik'],
+            stresModulleri: ['stresSkoru','kortizolProfili','hrvAnaliz','nefesTerapisi','biofeedback']
+        };
         
         // DOKTOR SORU VE TETKİK VERİLERİ + AI TEŞHİS
         const hastalikVerileri = {
@@ -217,41 +232,109 @@
             alert(yorum);
         };
         
+        // DETAYLI ANA SAYFA (ESKİSİ GİBİ GRAFİKLİ)
+        function renderModuleCard(moduleId){
+            const modulesMap = {
+                mentalSkor: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700 card-hover"><div class="flex justify-between"><i class="fas fa-brain text-emerald-400 text-xl"></i><span class="text-xs bg-gray-800 px-2 py-1 rounded-full">AI Skor</span></div><h3 class="font-bold mt-2">Mental Sağlık Skoru</h3><div class="text-4xl font-bold my-2">78<span class="text-lg">/100</span></div><div class="w-full bg-gray-700 rounded-full h-2"><div class="bg-emerald-500 w-[78%] h-2 rounded-full"></div></div><div class="flex justify-between text-xs mt-2"><span>⬆️ +5 puan</span><span>Depresyon risk: %12</span></div></div>`,
+                kritikUyarilar: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700 card-hover"><h3 class="font-bold"><i class="fas fa-bell text-amber-400"></i> Kritik Uyarılar</h3><div class="mt-2 space-y-2 text-sm"><div class="bg-red-900/20 p-2 rounded">⚠️ D Vitamini 24 ng/mL (düşük)</div><div class="bg-amber-900/20 p-2 rounded">⚠️ Omega-3 indeksi %4.2</div><div class="bg-sky-900/20 p-2 rounded">⚠️ HRV 28 ms (düşük)</div></div></div>`,
+                mikroBesin: `<div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-700"><h3 class="font-bold"><i class="fas fa-chart-pie text-emerald-400"></i> Mikro Besin Radarı</h3><canvas id="radarMini" height="150"></canvas><div class="text-[10px] text-center">Omega-3, D Vitamini kritik</div></div>`,
+                uykuAnaliz: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-moon text-indigo-300"></i><h3 class="font-bold">Uyku Analizi</h3><div class="text-2xl font-bold">6h 48dk</div><div>Derin: 1h24 | REM: 1h50</div><div class="mt-2 text-emerald-300">Öneri: 22:30 yatış, magnezyum</div></div>`,
+                stresHrv: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-heartbeat text-rose-400"></i><h3 class="font-bold">HRV & Stres</h3><div>RMSSD: 28 ms</div><div>Kortizol sabah 18.2 | akşam 5.1</div><div class="text-xs bg-gray-800 p-2 rounded mt-2">🧘 4-7-8 nefes önerilir</div></div>`,
+                bagirsakEksen: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-brain text-purple-400"></i><h3 class="font-bold">Bağırsak-Beyin</h3><div>Serotonin öncülleri: %62</div><div>Zonulin: ↑ yüksek</div><div>🦠 Probiyotik + Glutamin</div></div>`,
+                supplement: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-capsules text-emerald-400"></i><h3 class="font-bold">Supplement Optimizer</h3><div>💊 D3 5000IU<br>🐟 Omega-3 2g EPA<br>🧂 Magnezyum 144mg</div></div>`,
+                bilişsel: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-microchip text-cyan-400"></i><h3 class="font-bold">Bilişsel Performans</h3><div>Skor: 84/100</div><div>Reaksiyon: 312ms | Odaklanma +%8</div></div>`,
+                uzunYasam: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><i class="fas fa-hourglass-half text-indigo-300"></i><h3 class="font-bold">Uzun Yaşam Skoru</h3><div class="text-3xl font-bold">81/100</div><div>Metabolik yaş: 34</div><div>Kas kütlesi yeterli</div></div>`,
+                aiSohbet: `<div class="bg-gradient-to-br from-[#0f172a] to-[#111c2e] rounded-2xl p-5 border border-gray-700"><i class="fab fa-robot text-sky-400 text-xl"></i><h3 class="font-bold">AI Sağlık Koçu</h3><p class="text-xs">D vitamini ve omega-3 takviyesi önerilir. 30 günde mental skor +8 hedeflenir.</p><input placeholder="Sorunuz..." class="w-full mt-2 bg-gray-800 text-xs rounded-full px-3 py-1"></div>`,
+                moodGrafikTrend: `<div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-700"><h3>📈 Mood & Enerji Trendi (Son 4 Hafta)</h3><canvas id="moodLineChart" height="150"></canvas><div class="flex justify-between text-xs mt-2"><span>😊 Mood</span><span>⚡ Enerji</span><span>🎯 Odak</span></div></div>`
+            };
+            return modulesMap[moduleId] || `<div class="bg-gray-800 p-4 rounded-xl">Modül: ${moduleId}</div>`;
+        }
+        
+        function attachAnaSayfaCharts(){
+            if(document.getElementById('radarMini')){
+                new Chart(document.getElementById('radarMini'), { type:'radar', data:{ labels:['Omega-3','D Vit','B12','Magnezyum'], datasets:[{ data:[42,32,78,55], borderColor:'#10B981', backgroundColor:'rgba(16,185,129,0.2)' }] }, options:{ responsive: true, maintainAspectRatio: true } });
+            }
+            if(document.getElementById('moodLineChart')){
+                new Chart(document.getElementById('moodLineChart'), { type:'line', data:{ labels:['Hafta1','Hafta2','Hafta3','Hafta4'], datasets:[{ label:'Mood', data:[6,6.8,7.5,8.2], borderColor:'#3B82F6', tension:0.3},{ label:'Enerji', data:[5.5,6.2,7,8], borderColor:'#10B981', tension:0.3},{ label:'Odaklanma', data:[6,6.5,7.2,8.1], borderColor:'#F59E0B', tension:0.3}] }, options:{ responsive: true, maintainAspectRatio: true, plugins:{ legend:{ labels:{ color:'#e2e8f0', font:{ size:10 } } } } } });
+            }
+        }
+        
+        function renderYonetimPaneli(container){
+            let html = `<div class="bg-[#0F172A] rounded-2xl p-6 border border-gray-700"><h2 class="text-2xl font-bold mb-2"><i class="fas fa-sliders-h text-emerald-400"></i> Yönetim Paneli - Modül Düzenleyici</h2><p class="text-gray-400 text-sm mb-6">Sağlık gruplarına ait modülleri aktifleştirin/deaktif edin veya sürükleyerek sıralamayı değiştirin.</p>`;
+            const groups = ['anaSayfaModulleri','depresyonModulleri','anksiyeteModulleri','uykuModulleri','bagirsakModulleri','stresModulleri'];
+            const groupNames = {'anaSayfaModulleri':'🏠 Ana Sayfa','depresyonModulleri':'📉 Depresyon (B12+Lityum)','anksiyeteModulleri':'🌊 Anksiyete','uykuModulleri':'🌙 Uyku','bagirsakModulleri':'🧬 Bağırsak-Beyin','stresModulleri':'💆 Stres Yönetimi'};
+            for(let g of groups){
+                html += `<div class="mb-8 bg-gray-800/30 rounded-xl p-4"><h3 class="font-bold text-lg text-emerald-300 mb-3">${groupNames[g]}</h3><div class="flex flex-wrap gap-2" id="moduleGroup-${g}">`;
+                for(let mod of activeModules[g]){
+                    html += `<div draggable="true" data-group="${g}" data-module="${mod}" class="module-card bg-gray-700 hover:bg-gray-600 rounded-lg px-3 py-2 text-sm flex items-center gap-2 cursor-grab"><i class="fas fa-grip-vertical text-gray-400"></i> ${mod} <button onclick="toggleModule('${g}','${mod}')" class="ml-2 text-red-400 hover:text-red-300 text-xs"><i class="fas fa-times-circle"></i></button></div>`;
+                }
+                html += `<div class="mt-2"><select id="selectAdd-${g}" class="bg-gray-800 text-xs rounded px-2 py-1"><option value="">Yeni modül ekle</option><option value="mentalSkor">Mental Skor</option><option value="kritikUyarilar">Kritik Uyarılar</option><option value="mikroBesin">Mikro Besin</option><option value="uykuAnaliz">Uyku Analizi</option><option value="stresHrv">Stres HRV</option><option value="supplement">Supplement</option><option value="bilişsel">Bilişsel</option><option value="aiSohbet">AI Sohbet</option></select> <button onclick="addModuleToGroup('${g}')" class="bg-emerald-700 text-xs px-2 py-1 rounded">Ekle</button></div>`;
+                html += `</div></div>`;
+            }
+            html += `<div class="mt-4 text-xs text-gray-400 border-t border-gray-700 pt-4"><i class="fas fa-save"></i> Değişiklikler otomatik kaydedilir.</div></div>`;
+            container.innerHTML = html;
+            attachDragDropEvents();
+        }
+        
+        window.toggleModule = (groupKey, moduleName) => {
+            if(activeModules[groupKey]){
+                activeModules[groupKey] = activeModules[groupKey].filter(m => m !== moduleName);
+                renderYonetimPaneli(document.getElementById('dynamicContentArea'));
+            }
+        };
+        window.addModuleToGroup = (groupKey) => {
+            const select = document.getElementById(`selectAdd-${groupKey}`);
+            const newMod = select.value;
+            if(newMod && !activeModules[groupKey].includes(newMod)){
+                activeModules[groupKey].push(newMod);
+                renderYonetimPaneli(document.getElementById('dynamicContentArea'));
+            }
+        };
+        function attachDragDropEvents(){
+            const cards = document.querySelectorAll('.module-card');
+            cards.forEach(card => {
+                card.setAttribute('draggable', 'true');
+                card.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', JSON.stringify({group:card.dataset.group, module:card.dataset.module})); });
+                card.addEventListener('dragover', e => e.preventDefault());
+                card.addEventListener('drop', e => {
+                    e.preventDefault();
+                    const sourceData = JSON.parse(e.dataTransfer.getData('text/plain'));
+                    const targetCard = e.target.closest('.module-card');
+                    if(targetCard && sourceData){
+                        const targetGroup = targetCard.dataset.group;
+                        const targetModule = targetCard.dataset.module;
+                        if(sourceData.group === targetGroup && sourceData.module !== targetModule){
+                            const list = activeModules[sourceData.group];
+                            const srcIdx = list.indexOf(sourceData.module);
+                            const tgtIdx = list.indexOf(targetModule);
+                            if(srcIdx !== -1 && tgtIdx !== -1){
+                                list.splice(srcIdx,1);
+                                list.splice(tgtIdx,0, sourceData.module);
+                                renderYonetimPaneli(document.getElementById('dynamicContentArea'));
+                            }
+                        }
+                    }
+                });
+            });
+        }
+        
         function renderCurrentGroup(){
             const container = document.getElementById('dynamicContentArea');
             if(currentGroup === 'yönetim'){ renderYonetimPaneli(container); return; }
-            let groupTitle = '', modulListesi = [];
-            if(currentGroup === 'anasayfa'){ groupTitle = 'Genel Sağlık Yönetim Paneli'; modulListesi = ['mentalSkor','kritikUyarilar','mikroBesin','uykuAnaliz','stresHrv','bagirsakEksen','supplement','bilişsel','uzunYasam','aiSohbet']; }
-            else if(currentGroup === 'depresyon'){ groupTitle = 'Depresyon Risk Grubu - AI Teşhis Sistemi'; container.innerHTML = renderAiTeshisModulu('depresyon'); return; }
-            else if(currentGroup === 'anksiyete'){ groupTitle = 'Anksiyete Grubu - AI Teşhis Sistemi'; container.innerHTML = renderAiTeshisModulu('anksiyete'); return; }
-            else if(currentGroup === 'uyku'){ groupTitle = 'Uyku Bozukluğu - AI Teşhis Sistemi'; container.innerHTML = renderAiTeshisModulu('uyku'); return; }
-            else if(currentGroup === 'bagirsak'){ groupTitle = 'Bağırsak-Beyin Ekseni - AI Teşhis Sistemi'; container.innerHTML = renderAiTeshisModulu('bagirsak'); return; }
-            else if(currentGroup === 'stres'){ groupTitle = 'Stres Yönetimi - AI Teşhis Sistemi'; container.innerHTML = renderAiTeshisModulu('stres'); return; }
-            let html = `<div class="mb-6"><h2 class="text-2xl font-bold bg-gradient-to-r from-emerald-300 to-sky-300 bg-clip-text text-transparent">${groupTitle}</h2></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
-            for(let mod of modulListesi){ html += renderModuleCard(mod); }
-            html += `</div>`; container.innerHTML = html; attachChartScripts();
+            if(currentGroup === 'anasayfa'){
+                let html = `<div class="mb-6"><h2 class="text-2xl font-bold bg-gradient-to-r from-emerald-300 to-sky-300 bg-clip-text text-transparent">Genel Sağlık Yönetim Paneli - Executive Dashboard</h2><p class="text-gray-400 text-sm">Tüm sağlık KPI'ları ve AI destekli analizler</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
+                for(let mod of activeModules.anaSayfaModulleri){ html += renderModuleCard(mod); }
+                html += `</div>`;
+                container.innerHTML = html;
+                attachAnaSayfaCharts();
+                return;
+            }
+            if(['depresyon','anksiyete','uyku','bagirsak','stres'].includes(currentGroup)){
+                container.innerHTML = renderAiTeshisModulu(currentGroup);
+                return;
+            }
         }
         
-        function renderModuleCard(moduleId){
-            const map = {
-                mentalSkor:`<div class="bg-[#0F172A] rounded-2xl p-5"><div class="text-4xl font-bold">78<span class="text-lg">/100</span></div><div>Mental Sağlık Skoru</div><div class="text-green-400">⬆️ +5 puan</div></div>`,
-                kritikUyarilar:`<div class="bg-[#0F172A] rounded-2xl p-5"><h3 class="font-bold">Kritik Uyarılar</h3><div class="text-xs">⚠️ D Vitamini düşük<br>⚠️ Omega-3 düşük</div></div>`,
-                mikroBesin:`<div class="bg-[#0F172A] rounded-2xl p-4"><canvas id="radarMini" height="150"></canvas></div>`,
-                uykuAnaliz:`<div class="bg-[#0F172A] rounded-2xl p-5"><div class="text-2xl font-bold">6h 48dk</div><div>Uyku Kalitesi: 72/100</div></div>`,
-                stresHrv:`<div class="bg-[#0F172A] rounded-2xl p-5"><div>HRV: 28 ms</div><div>Kortizol: 18.2/5.1</div></div>`,
-                bagirsakEksen:`<div class="bg-[#0F172A] rounded-2xl p-5"><div>Serotonin: %62</div><div>Zonulin: ↑ yüksek</div></div>`,
-                supplement:`<div class="bg-[#0F172A] rounded-2xl p-5"><div>💊 D3 5000IU<br>🐟 Omega-3 2g</div></div>`,
-                bilişsel:`<div class="bg-[#0F172A] rounded-2xl p-5"><div>Skor: 84/100</div><div>Reaksiyon: 312ms</div></div>`,
-                uzunYasam:`<div class="bg-[#0F172A] rounded-2xl p-5"><div class="text-3xl font-bold">81/100</div><div>Metabolik yaş: 34</div></div>`,
-                aiSohbet:`<div class="bg-[#0F172A] rounded-2xl p-5"><i class="fab fa-robot"></i><p class="text-xs">AI Sağlık Koçu aktif</p><input placeholder="Sorunuz..." class="w-full mt-2 bg-gray-800 rounded-full px-3 py-1 text-xs"></div>`
-            }; return map[moduleId] || `<div class="bg-gray-800 p-4 rounded-xl">Modül</div>`;
-        }
-        
-        function attachChartScripts(){
-            if(document.getElementById('radarMini')) new Chart(document.getElementById('radarMini'), { type:'radar', data:{ labels:['Omega-3','D Vit','B12','Magnezyum'], datasets:[{ data:[42,32,78,55], borderColor:'#10B981', backgroundColor:'rgba(16,185,129,0.2)' }] }, options:{ responsive: true } });
-        }
-        
-        function renderYonetimPaneli(container){ container.innerHTML = `<div class="bg-[#0F172A] rounded-2xl p-6"><h2 class="text-xl font-bold">Yönetim Paneli</h2><p class="text-gray-400 text-sm">Modül düzenleme özelliği aktif.</p></div>`; }
         window.renderCurrentGroup = renderCurrentGroup;
         window.switchHealthGroup('anasayfa');
         document.getElementById('loginEmail').value = 'admin@klinik.com';
