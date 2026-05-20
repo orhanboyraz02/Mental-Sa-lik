@@ -20,7 +20,6 @@
         .modal-overlay { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
         .module-drag { cursor: grab; }
         .module-drag:active { cursor: grabbing; }
-        .role-badge { background: linear-gradient(135deg, #1E2A3A, #0F172A); }
     </style>
 </head>
 <body class="text-gray-200">
@@ -41,7 +40,7 @@
                 <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 py-2.5 rounded-xl font-semibold">Giriş Yap</button>
                 <div class="text-center text-xs text-gray-500">Demo: admin@klinik.com / 123456</div>
             </div>
-            <div class="mt-5 text-center text-[10px] text-gray-600 border-t border-gray-800 pt-3">HIPAA & GDPR Uyumlu | AI Destekli Tanımsal Öneri</div>
+            <div class="mt-5 text-center text-[10px] text-gray-600 border-t border-gray-800 pt-3">HIPAA & GDPR Uyumlu | AI Destekli Danışmanlık</div>
         </div>
     </div>
 
@@ -73,19 +72,27 @@
         </div>
 
         <div class="max-w-[1800px] mx-auto p-5">
-            <!-- DİNAMİK İÇERİK ALANI: Sağlık gruplarına göre değişir -->
+            <!-- DİNAMİK İÇERİK ALANI -->
             <div id="dynamicContentArea" class="transition-all duration-300"></div>
         </div>
 
-        <!-- FOOTER: ORHAN BOYRAZ BİLGİLERİ -->
+        <!-- FOOTER: Orhan BOYRAZ - WEB SİTESİ, ABONELİK, TELEFONLA HİZMET, PAKETLER -->
         <footer class="border-t border-gray-800 bg-[#0A0F1F] mt-8 pt-6 pb-4 px-5">
             <div class="max-w-[1800px] mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-[12px] text-gray-400">
-                    <div><i class="fas fa-user-tie text-emerald-400 mr-2"></i><strong class="text-white">Orhan BOYRAZ</strong><br>Fonksiyonel Tıp & Sağlık Teknolojileri Mimarı<br>Uzmanlık Alanları: Nörobilim, Beslenme Psikiyatrisi, Longevity</div>
-                    <div><i class="fas fa-phone-alt text-emerald-400 mr-2"></i><strong class="text-white">İletişim</strong><br>📞 0540 966 6002<br>📧 orhanboyraz0216@gmail.com<br>🌐 www.anadolunetwork.tr</div>
-                    <div><i class="fas fa-shield-alt text-emerald-400 mr-2"></i><strong class="text-white">Yasal & Teknik</strong><br>Bu sistem tıbbi tanı yerine geçmez. AI destekli öneriler eğitim amaçlıdır. Tüm hakları saklıdır © 2025 | Versiyon 3.0 | GDPR Uyumlu</div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-[12px] text-gray-400">
+                    <!-- Kişisel Bilgi -->
+                    <div><i class="fas fa-user-tie text-emerald-400 mr-2"></i><strong class="text-white">Orhan BOYRAZ</strong><br>Fonksiyonel Tıp & Sağlık Teknolojileri Mimarı<br>Nörobilim, Beslenme Psikiyatrisi, Longevity</div>
+                    <!-- İletişim & Abonelik -->
+                    <div><i class="fas fa-phone-alt text-emerald-400 mr-2"></i><strong class="text-white">İletişim & Abonelik</strong><br>📞 0540 966 6002<br>📧 orhanboyraz0216@gmail.com<br><span class="text-emerald-300"><i class="fas fa-headset"></i> Telefonla Hizmet Alma: Hafta içi 09:00-18:00</span></div>
+                    <!-- Web Sitesi ve Paketler -->
+                    <div><i class="fas fa-globe text-emerald-400 mr-2"></i><strong class="text-white">Web & Dijital Platform</strong><br><a href="https://anadolunetwork.tr/" target="_blank" class="text-sky-400 hover:underline">🌐 anadolunetwork.tr</a><br><span class="block mt-1"><i class="fas fa-box text-amber-400"></i> Premium Paketler: Bireysel | Pro | Klinik | Kurumsal</span></div>
+                    <!-- Hizmet Paketleri Detay -->
+                    <div><i class="fas fa-tags text-emerald-400 mr-2"></i><strong class="text-white">Özel Sağlık Paketleri</strong><br>🥗 Temel Beslenme Danışmanlığı<br>🧠 Nöro-metabolik terapi<br>🏥 Kurumsal Longevity Programı<br><span class="text-emerald-300">📞 0540 966 6602 ile randevu alın</span></div>
                 </div>
-                <div class="text-center text-[10px] text-gray-600 mt-5 pt-3 border-t border-gray-800">Developed by Orhan BOYRAZ - Beslenme & Mental Sağlık Intelligence Dashboard | Fonksiyonel Tıp Yapay Zeka Motoru</div>
+                <div class="text-center text-[10px] text-gray-600 mt-5 pt-3 border-t border-gray-800 flex flex-wrap justify-between items-center">
+                    <span>© 2025 Orhan BOYRAZ - Beslenme & Mental Sağlık Intelligence Dashboard | Tüm hakları saklıdır, Bilgi alaçlıdır, önemli sağlık sorunlarınız için doktora gitmenizde fayda var.</span>
+                    <span><i class="fas fa-shield-alt"></i> HIPAA/GDPR Uyumlu | Versiyon 4.0</span>
+                </div>
             </div>
         </footer>
     </div>
@@ -111,22 +118,19 @@
         // Sağlık grubu geçişleri
         window.switchHealthGroup = (group) => {
             currentGroup = group;
-            // Tab görsel güncelleme
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('nav-tab-active', 'border-b-2', 'border-emerald-500', 'text-emerald-400'));
             const activeTab = document.getElementById(`tab${group.charAt(0).toUpperCase()+group.slice(1)}`);
             if(activeTab) activeTab.classList.add('nav-tab-active','text-emerald-400','border-b-2','border-emerald-500');
-            else document.getElementById('tabAnasayfa')?.classList.add('nav-tab-active','text-emerald-400');
+            else document.getElementById('tabAnasayfa')?.classList.add('nav-tab-active','text-emerald-400','border-b-2','border-emerald-500');
             renderCurrentGroup();
         };
         
-        // RENDER FONKSİYONU: Sağlık grubuna göre dashboard + yönetim paneli
         function renderCurrentGroup(){
             const container = document.getElementById('dynamicContentArea');
             if(currentGroup === 'yönetim'){
                 renderYonetimPaneli(container);
                 return;
             }
-            // Normal sağlık grubu gösterimi
             let modulListesi = [];
             if(currentGroup === 'anasayfa') modulListesi = activeModules.anaSayfaModulleri;
             else if(currentGroup === 'depresyon') modulListesi = activeModules.depresyonModulleri;
@@ -142,10 +146,7 @@
             else groupTitle = '🧬 Bağırsak-Beyin Ekseni | Mikrobiyom & Nörotransmitter';
             
             let html = `<div class="mb-6"><h2 class="text-2xl font-bold bg-gradient-to-r from-emerald-300 to-sky-300 bg-clip-text text-transparent">${groupTitle}</h2><p class="text-gray-400 text-sm">Kişiselleştirilmiş AI müdahaleleri ve biyomedikal izleme</p></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">`;
-            
-            for(let mod of modulListesi){
-                html += renderModuleCard(mod);
-            }
+            for(let mod of modulListesi){ html += renderModuleCard(mod); }
             html += `</div>`;
             container.innerHTML = html;
             attachChartScripts();
@@ -175,7 +176,7 @@
                 sirkadiyen: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><h3>Sirkadiyen Ritim</h3><div>Melatonin salınımı gecikmeli</div><div>🌅 Sabah ışığı önerisi</div></div>`,
                 bagirsakModul: `<div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-700"><h3>Mikrobiyom Çeşitliliği</h3><div>Alpha diversity: düşük</div><div>Firmicutes/Bacteroidetes yüksek</div></div>`
             };
-            return modulesMap[moduleId] || `<div class="bg-gray-800 p-4 rounded-xl">Modül: ${moduleId} (Yükleniyor)</div>`;
+            return modulesMap[moduleId] || `<div class="bg-gray-800 p-4 rounded-xl">Modül: ${moduleId}</div>`;
         }
 
         function attachChartScripts(){
@@ -187,9 +188,9 @@
             }
         }
         
-        // YÖNETİM PANELİ: Modülleri Sürükle-Bırak düzenleme
+        // YÖNETİM PANELİ: Modül düzenleme
         function renderYonetimPaneli(container){
-            let html = `<div class="bg-[#0F172A] rounded-2xl p-6 border border-gray-700"><h2 class="text-2xl font-bold mb-2"><i class="fas fa-sliders-h text-emerald-400"></i> Yönetim Paneli - Modül Düzenleyici</h2><p class="text-gray-400 text-sm mb-6">Aşağıdaki sağlık gruplarına ait modülleri aktifleştirebilir/deaktif edebilir veya sürükleyerek sıralamayı değiştirebilirsiniz (demo amaçlı toggle).</p>`;
+            let html = `<div class="bg-[#0F172A] rounded-2xl p-6 border border-gray-700"><h2 class="text-2xl font-bold mb-2"><i class="fas fa-sliders-h text-emerald-400"></i> Yönetim Paneli - Modül Düzenleyici</h2><p class="text-gray-400 text-sm mb-6">Sağlık gruplarına ait modülleri aktifleştirin/deaktif edin veya sürükleyerek sıralamayı değiştirin.</p>`;
             const groups = ['anaSayfaModulleri','depresyonModulleri','anksiyeteModulleri','uykuModulleri','bagirsakModulleri'];
             const groupNames = {'anaSayfaModulleri':'🏠 Ana Sayfa','depresyonModulleri':'📉 Depresyon Grubu','anksiyeteModulleri':'🌊 Anksiyete','uykuModulleri':'🌙 Uyku','bagirsakModulleri':'🧬 Bağırsak-Beyin'};
             for(let g of groups){
@@ -200,7 +201,7 @@
                 html += `<div class="mt-2"><select id="selectAdd-${g}" class="bg-gray-800 text-xs rounded px-2 py-1"><option value="">Yeni modül ekle</option><option value="mentalSkor">Mental Skor</option><option value="kritikUyarilar">Kritik Uyarılar</option><option value="mikroBesin">Mikro Besin</option><option value="uykuAnaliz">Uyku Analizi</option><option value="stresHrv">Stres HRV</option><option value="supplement">Supplement</option><option value="bilişsel">Bilişsel</option><option value="aiSohbet">AI Sohbet</option></select> <button onclick="addModuleToGroup('${g}')" class="bg-emerald-700 text-xs px-2 py-1 rounded">Ekle</button></div>`;
                 html += `</div></div>`;
             }
-            html += `<div class="mt-4 text-xs text-gray-400 border-t border-gray-700 pt-4"><i class="fas fa-save"></i> Değişiklikler otomatik kaydedilir. Yönetim paneli sayesinde tüm sağlık gruplarındaki görünümü düzenleyebilirsiniz.</div></div>`;
+            html += `<div class="mt-4 text-xs text-gray-400 border-t border-gray-700 pt-4"><i class="fas fa-save"></i> Değişiklikler otomatik kaydedilir. Tüm sağlık gruplarındaki görünümü düzenleyebilirsiniz.</div></div>`;
             container.innerHTML = html;
             attachDragDropEvents();
         }
@@ -246,7 +247,6 @@
             });
         }
         
-        // İlk render
         window.renderCurrentGroup = renderCurrentGroup;
         window.switchHealthGroup('anasayfa');
         document.getElementById('loginEmail').value = 'admin@klinik.com';
