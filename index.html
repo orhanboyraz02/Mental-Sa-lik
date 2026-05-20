@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Nutrition & Mental Wellness Intelligence Dashboard | Fonksiyonel Tıp Paneli</title>
+    <!-- Google Fonts & Tailwind CDN + Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js for modern graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background: #0A0F1F; }
+        /* custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #111827; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #2d3a5e; border-radius: 10px; }
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.5);
+        }
+        .gradient-border {
+            background: linear-gradient(135deg, #10B981, #0EA5E9);
+            padding: 1px;
+            border-radius: 1.25rem;
+        }
+        .gauge-value {
+            background: linear-gradient(135deg, #1E2A3A, #0F172A);
+        }
+    </style>
+</head>
+<body class="text-gray-200 antialiased">
+
+    <div class="max-w-[1600px] mx-auto p-4 md:p-6">
+        
+        <!-- HEADER: premium navbar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">🧠 Nutrition & Mental Wellness</h1>
+                <p class="text-gray-400 text-sm mt-1">Fonksiyonel Tıp · AI Destekli Analiz Paneli</p>
+            </div>
+            <div class="flex items-center gap-3 bg-[#111827] px-4 py-2 rounded-full border border-gray-700">
+                <i class="fas fa-user-md text-emerald-400"></i>
+                <span class="text-sm font-medium">Dr. AI · Uzman Sistemi</span>
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs font-bold">AD</div>
+            </div>
+        </div>
+
+        <!-- Executive Command Center: Hızlı Skorlar & Kritik Uyarılar -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Ana Mental Health Score Card -->
+            <div class="gradient-border col-span-1 lg:col-span-1">
+                <div class="bg-[#0F172A] rounded-2xl p-5 h-full flex flex-col">
+                    <div class="flex justify-between items-start">
+                        <span class="text-gray-300 text-sm font-medium"><i class="fas fa-brain text-emerald-400 mr-1"></i> Mental Sağlık Skoru</span>
+                        <i class="fas fa-chart-line text-emerald-400/60"></i>
+                    </div>
+                    <div class="flex justify-center items-center my-3 relative">
+                        <div class="relative w-36 h-36">
+                            <svg class="w-full h-full" viewBox="0 0 120 120">
+                                <circle cx="60" cy="60" r="52" fill="none" stroke="#1E2A3A" stroke-width="8"/>
+                                <circle id="mental-score-circle" cx="60" cy="60" r="52" fill="none" stroke="#10B981" stroke-width="8" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                                <text x="60" y="70" text-anchor="middle" fill="white" font-size="26" font-weight="bold" dominant-baseline="middle" id="mental-score-text">78</text>
+                                <text x="60" y="90" text-anchor="middle" fill="#9ca3af" font-size="10" dominant-baseline="middle">/100</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="text-center mt-1">
+                        <span class="text-green-400 text-sm"><i class="fas fa-arrow-up mr-1"></i> +4 puan (son 2 hafta)</span>
+                        <p class="text-xs text-gray-400 mt-1">Bilişsel dayanıklılık yüksek</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-800 grid grid-cols-2 gap-2 text-center text-xs">
+                        <div><span class="text-gray-400">Depresyon riski</span><br><span class="text-red-400 font-bold">12%</span> <span class="text-green-300">▼ düşük</span></div>
+                        <div><span class="text-gray-400">Anksiyete riski</span><br><span class="text-amber-400 font-bold">24%</span> <span class="text-yellow-300">● orta</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kritik Uyarılar & Biyobelirteçler -->
+            <div class="lg:col-span-2 bg-[#0F172A] rounded-2xl p-5 border border-gray-800/60 card-hover">
+                <div class="flex justify-between items-center mb-3"><h3 class="font-semibold"><i class="fas fa-exclamation-triangle text-amber-400 mr-2"></i>Kritik Biyobelirteç Uyarıları</h3><span class="text-xs bg-gray-800 px-2 py-1 rounded-full">AI Derin Analiz</span></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="bg-red-900/20 border-l-4 border-red-500 p-3 rounded-lg"><div class="flex justify-between"><span class="font-medium">D Vitamini</span><span class="text-red-300">24 ng/mL</span></div><div class="text-xs text-gray-300">Kritik düşük → depresyon riski + %32</div><div class="text-emerald-300 text-xs mt-1">Öneri: 5000 IU D3 + K2</div></div>
+                    <div class="bg-amber-900/20 border-l-4 border-amber-500 p-3 rounded-lg"><div class="flex justify-between"><span class="font-medium">Omega-3 İndeksi</span><span class="text-amber-300">4.2%</span></div><div class="text-xs text-gray-300">Optimalin altı, inflamasyon riski</div><div class="text-emerald-300 text-xs mt-1">Öneri: EPA 1.5g/gün</div></div>
+                    <div class="bg-sky-900/20 border-l-4 border-sky-500 p-3 rounded-lg"><div class="flex justify-between"><span class="font-medium">HRV (RMSSD)</span><span class="text-sky-300">28 ms</span></div><div class="text-xs text-gray-300">Düşük otonomik denge, stres yükü</div><div class="text-emerald-300 text-xs">Öneri: Magnezyum glisinat + solunum</div></div>
+                    <div class="bg-emerald-900/20 border-l-4 border-emerald-500 p-3 rounded-lg"><div class="flex justify-between"><span class="font-medium">Bağırsak Sağlığı</span><span class="text-emerald-300">65/100</span></div><div class="text-xs text-gray-300">Zonulin yüksek, geçirgen bağırsak</div><div class="text-emerald-300 text-xs">Probiyotik + glutamin önerilir</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2 Ana Grid: Mental Health Trend + Mikro Besin Radarı ve Uyku/HRV -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Mental trend chart -->
+            <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800">
+                <div class="flex justify-between items-center mb-3"><h3 class="font-semibold"><i class="fas fa-chart-line text-emerald-400 mr-2"></i>Mental Skor Trendi (30 gün)</h3><i class="fas fa-calendar-alt text-gray-500"></i></div>
+                <canvas id="mentalTrendChart" height="180" style="max-height: 220px; width:100%"></canvas>
+                <div class="flex justify-between text-xs text-gray-400 mt-2"><span>🔵 Mood</span><span>🟢 Enerji</span><span>🟠 Odaklanma</span></div>
+            </div>
+            <!-- Mikronutrient Radar Chart (Omega-3, D, B12, Magnezyum, Folat) -->
+            <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800">
+                <div class="flex justify-between"><h3 class="font-semibold"><i class="fas fa-microscope text-sky-400 mr-2"></i>Mikronutrient Durumu</h3><span class="text-xs text-gray-400">Optimal hedef: > %70</span></div>
+                <canvas id="micronutrientRadar" height="200" style="max-height: 210px; width:100%"></canvas>
+                <div class="text-center mt-2 text-xs text-gray-300"><i class="fas fa-info-circle"></i> Omega-3 ve D vitamini öncelikli takviye</div>
+            </div>
+        </div>
+
+        <!-- 2. Satır: Sleep Intelligence + Stres & HRV + Gut-Brain -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800 card-hover">
+                <div class="flex items-center gap-2 mb-3"><i class="fas fa-moon text-indigo-300 text-xl"></i><h3 class="font-semibold">Sleep Intelligence</h3></div>
+                <div class="flex justify-between items-baseline"><span class="text-3xl font-bold text-white">6<span class="text-lg">sa 48dk</span></span><span class="text-amber-300 text-sm">Hedef: 7.5sa</span></div>
+                <div class="w-full bg-gray-700 rounded-full h-2 my-2"><div class="bg-indigo-500 w-[70%] h-2 rounded-full"></div></div>
+                <div class="grid grid-cols-2 gap-2 text-sm mt-2"><div>💤 Derin: 1h 24m</div><div>🧠 REM: 1h 50m</div><div>🔄 Sirkadiyen: 🌙 geç melatonin</div><div>⭐ Kalite Skoru: 72/100</div></div>
+                <div class="text-emerald-400 text-xs mt-3"><i class="fas fa-lightbulb"></i> Öneri: 22:30'da yat, magnezyum takviyesi</div>
+            </div>
+            <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800 card-hover">
+                <div class="flex items-center gap-2 mb-3"><i class="fas fa-heartbeat text-rose-400 text-xl"></i><h3 class="font-semibold">Stres & HRV</h3></div>
+                <div class="text-center"><span class="text-4xl font-bold text-sky-300">28<span class="text-base"> ms</span></span><p class="text-xs text-gray-400">RMSSD (son 7 gün ort)</p></div>
+                <div class="flex justify-between mt-2 text-sm"><span>Kortizol sabah: <strong class="text-yellow-300">18.2 ug/dL</strong></span><span>Akşam: <strong class="text-green-300">5.1</strong></span></div>
+                <div class="mt-2 h-1.5 bg-gray-700 rounded-full"><div class="w-1/2 bg-rose-500 h-1.5 rounded-full"></div></div>
+                <div class="flex justify-between text-xs mt-2"><span>Sempatik tonus ↑</span><span>Parasempatik ↓</span></div>
+                <div class="bg-gray-800/60 p-2 rounded mt-3 text-xs">🧘‍♂️ Öneri: 4-7-8 nefes, günlük 10 dk meditasyon, HRV artar</div>
+            </div>
+            <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800 card-hover">
+                <div class="flex items-center gap-2 mb-2"><i class="fas fa-brain text-purple-400 text-xl"></i><h3 class="font-semibold">Gut-Brain Axis</h3></div>
+                <div><div class="flex justify-between"><span>Serotonin öncülleri</span><span class="text-purple-300">%62</span></div><div class="w-full bg-gray-700 rounded-full h-1.5 my-1"><div class="bg-purple-500 w-[62%] h-1.5 rounded-full"></div></div></div>
+                <div><div class="flex justify-between mt-2"><span>Zonulin (geçirgenlik)</span><span class="text-amber-300">↑ yüksek</span></div></div>
+                <div><div class="flex justify-between mt-2"><span>SCFA (butyrate)</span><span>orta-düşük</span></div></div>
+                <div class="mt-3 bg-gray-800/40 p-2 rounded text-xs text-gray-300"><i class="fas fa-seedling text-emerald-400"></i> Fermente gıdalar, dirençli nişasta, probiyotik LGG</div>
+            </div>
+        </div>
+
+        <!-- Supplement Engine + Kan şekeri + Cognitive + Longevity -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800">
+                <h3 class="font-medium text-sm text-gray-300 mb-2"><i class="fas fa-pills text-emerald-400 mr-1"></i> Supplement Optimizer</h3>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between"><span>💊 D3+K2</span><span class="text-emerald-300">5000 IU/gün</span></div>
+                    <div class="flex justify-between"><span>🐟 Omega-3 (EPA/DHA)</span><span class="text-emerald-300">2g EPA öncelikli</span></div>
+                    <div class="flex justify-between"><span>🧂 Magnezyum L-Threonate</span><span class="text-emerald-300">144mg elemental</span></div>
+                    <div class="flex justify-between"><span>🧬 B12 (Metilkobalamin)</span><span class="text-emerald-300">1000mcg/ gün</span></div>
+                    <div class="flex justify-between"><span>🍄 L-Theanine (gece)</span><span class="text-emerald-300">200mg</span></div>
+                </div>
+            </div>
+            <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800">
+                <h3 class="font-medium text-sm text-gray-300 mb-2"><i class="fas fa-tachometer-alt text-cyan-400 mr-1"></i> Kan Şekeri Stabilitesi</h3>
+                <div><span class="text-2xl font-bold">88</span><span class="text-xs"> mg/dL (açlık)</span></div>
+                <div class="flex justify-between text-xs"><span>HOMA-IR: 1.9</span><span class="text-green-400">✅ İyi</span></div>
+                <div>GMI: 5.7% | CV: 14%</div>
+                <div class="w-full bg-gray-700 rounded-full h-1.5 mt-2"><div class="bg-emerald-500 w-4/5 h-1.5 rounded-full"></div></div>
+                <div class="text-xs mt-2">Düşük glisemik yük, protein ağırlıklı beslenme önerilir.</div>
+            </div>
+            <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800">
+                <h3 class="font-medium text-sm text-gray-300 mb-2"><i class="fas fa-charging-station text-yellow-400 mr-1"></i> Bilişsel Performans</h3>
+                <div><span class="text-2xl font-bold">84</span><span>/100</span> <span class="text-green-300 text-xs">▲%8 gelişim</span></div>
+                <div class="grid grid-cols-2 gap-1 text-xs mt-1"><span>Reaksiyon: 312 ms</span><span>Çalışan bellek: 86%</span><span>Dikkat süresi: 24 dk</span><span>İşlem hızı: iyi</span></div>
+                <div class="mt-2 text-emerald-400 text-xs"><i class="fas fa-dumbbell"></i> Beyin egzersizleri + kreatin takviyesi</div>
+            </div>
+            <div class="bg-[#0F172A] rounded-2xl p-4 border border-gray-800">
+                <h3 class="font-medium text-sm text-gray-300 mb-2"><i class="fas fa-hourglass-half text-indigo-300 mr-1"></i> Uzun Yaşam Skoru</h3>
+                <div class="text-3xl font-bold text-indigo-300">81<span class="text-base">/100</span></div>
+                <div class="flex justify-between text-xs mt-1"><span>Metabolik Yaş: 34</span><span>Gerçek Yaş: 38</span></div>
+                <div class="mt-1">Kas kütlesi: ✅ | İnflamasyon: CRP 1.2 mg/L</div>
+                <div class="mt-2 text-xs bg-gray-800 rounded p-1 text-center">🔥 Epigenetik yaş tahmini: -3 yıl fark</div>
+            </div>
+        </div>
+        
+        <!-- AI Health Coach & Meal Planner & Progress -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-gradient-to-br from-[#0f172a] to-[#111c2e] rounded-2xl p-5 border border-gray-700">
+                <div class="flex items-center gap-2 mb-3"><i class="fab fa-robot text-2xl text-sky-400"></i><h3 class="font-bold">🤖 AI Health Coach</h3><span class="bg-emerald-500/20 px-2 rounded-full text-[10px]">GPT-4 Sağlık Asistanı</span></div>
+                <div class="bg-black/30 rounded-xl p-3 text-sm text-gray-200 max-h-32 overflow-y-auto">
+                    <p><i class="fas fa-comment-dots text-emerald-400"></i> <strong>Analiz:</strong> D vitamini, omega-3 ve HRV düşüklüğü major etken. Önerilen protokol: güneşlenme, balık yağı 2g/gün, gece magnezyum ve 7 günlük sirkadiyen ritim düzeltmesi ile mental skorun 85'e çıkması beklenir. Depresyon riskiniz orta-alt düzeydedir, düzenli egzersiz ve omega-3 ile 4 haftada iyileşme.</p>
+                </div>
+                <div class="mt-3 flex gap-2"><input type="text" placeholder="Semptom veya soru sorun..." class="bg-gray-800 w-full rounded-full px-4 py-1.5 text-sm border border-gray-600"><button class="bg-emerald-600 px-4 rounded-full text-sm"><i class="fas fa-paper-plane"></i></button></div>
+            </div>
+            <div class="bg-[#0F172A] rounded-2xl p-5 border border-gray-800">
+                <h3 class="font-semibold mb-2"><i class="fas fa-utensils text-amber-400 mr-2"></i>Kişiselleştirilmiş Meal Plan (Bugün)</h3>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="bg-gray-800/50 p-2 rounded"><i class="fas fa-sun text-yellow-300"></i> Kahvaltı: Yumurta + Avokado + Ispanak, tam tahıl</div>
+                    <div class="bg-gray-800/50 p-2 rounded"><i class="fas fa-cloud-sun"></i> Öğle: Somon, kinoa, zeytinyağlı yeşillikler</div>
+                    <div class="bg-gray-800/50 p-2 rounded"><i class="fas fa-moon"></i> Akşam: Hindi göğsü, tatlı patates, brokoli + zerdeçal</div>
+                    <div class="bg-gray-800/50 p-2 rounded"><i class="fas fa-apple-alt"></i> Atıştırma: Ceviz, bitter çikolata (%85), yaban mersini</div>
+                </div>
+                <div class="mt-3 border-t border-gray-700 pt-2 flex justify-between text-xs text-gray-400"><span>✅ Anti-inflamatuar puanı: 88%</span><span>🧠 Nörotransmitter desteği: Yüksek</span></div>
+            </div>
+        </div>
+
+        <!-- Footer & Uyarı -->
+        <div class="mt-10 text-center text-[11px] text-gray-500 border-t border-gray-800 pt-6">
+            <i class="fas fa-shield-alt"></i> Bu sistem yalnızca eğitim ve yaşam tarzı optimizasyonu amaçlıdır; tıbbi tanı veya tedavi yerine geçmez. Tüm öneriler sağlık profesyoneli değerlendirmesi ile kullanılmalıdır.
+        </div>
+    </div>
+
+    <script>
+        // Radar chart (Mikronutrient)
+        const radarCtx = document.getElementById('micronutrientRadar').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Omega-3 İndeksi', 'D Vitamini', 'B12', 'Magnezyum', 'Folat', 'Çinko'],
+                datasets: [{
+                    label: 'Mevcut seviye (%)',
+                    data: [42, 32, 78, 55, 68, 72],
+                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    borderColor: '#10B981',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#0EA5E9',
+                    pointBorderColor: '#fff',
+                },{
+                    label: 'Optimal Hedef',
+                    data: [85, 80, 90, 80, 85, 85],
+                    backgroundColor: 'rgba(59,130,246,0.05)',
+                    borderColor: '#3B82F6',
+                    borderWidth: 1.5,
+                    borderDash: [5,5],
+                    pointRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: { r: { beginAtZero: true, max: 100, ticks: { color: '#9ca3af', stepSize: 20 }, grid: { color: '#1f2a3e' }, angleLines: { color: '#1f2a3e' } } },
+                plugins: { legend: { labels: { color: '#e2e8f0', font: { size: 10 } }, position: 'bottom' } }
+            }
+        });
+
+        // Trend line chart (Mood, Energy, Focus simülasyonu)
+        const trendCtx = document.getElementById('mentalTrendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'Hafta2', 'H3', 'H4', 'Bugün'],
+                datasets: [
+                    { label: 'Mood (1-10)', data: [6,5.5,6,7,7.2,7.5,7.8,8,7.9,8.2,8.5], borderColor: '#3B82F6', backgroundColor: 'transparent', tension: 0.3, fill: false, pointRadius: 2 },
+                    { label: 'Enerji', data: [5,5.4,6,6.5,6.8,7,7.2,7.5,7.7,8,8.2], borderColor: '#10B981', tension: 0.3, fill: false, pointRadius: 2 },
+                    { label: 'Odaklanma', data: [6.2,6,6.5,6.8,7,7.3,7.5,7.9,8,8.1,8.3], borderColor: '#F59E0B', tension: 0.3, fill: false, pointRadius: 2 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: true,
+                scales: { y: { min: 4, max: 10, grid: { color: '#1f2a3e' }, ticks: { color: '#bbb' } }, x: { ticks: { color: '#aaa' } } },
+                plugins: { legend: { labels: { color: '#ddd', font: { size: 10 } }, position: 'top' } }
+            }
+        });
+        
+        // Mental Health Score Circle animation (set 78)
+        const circle = document.querySelector('#mental-score-circle');
+        const textEl = document.querySelector('#mental-score-text');
+        let score = 78;
+        const circumference = 2 * Math.PI * 52; // yaklaşık 326.7
+        let offset = circumference - (score/100) * circumference;
+        circle.style.strokeDasharray = `${circumference}`;
+        circle.style.strokeDashoffset = offset;
+        textEl.innerText = score;
+
+        // Ek bir canlılık için küçük simülasyon: HRV değerini dinamik göster (istek üzerine)
+        // Opsiyonel: Güncel kartlarda tooltip vs hazır.
+    </script>
+
+    <!-- Ekstra mobil uyum ve dashboard tam responsive -->
+</body>
+</html>
